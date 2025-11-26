@@ -4,12 +4,12 @@
 
 ## 📋 Overview
 
-This project is a lightweight URL shortening service, utilizing Base62 encoding algorithm, built to demonstrate backend development skills and explore the hybrid use of **Java** and **Kotlin** within a single **Spring Boot** application.
+This project is a lightweight URL shortening service built to demonstrate backend development skills and explore the hybrid use of **Java** and **Kotlin** within a single **Spring Boot** application.
 
 The primary goal of this project was to practice:
-* Setting up a mixed-language build environment with **Maven**.
-* Implementing RESTful architecture.
-* Writing clean, maintainable code for a common real-world use case.
+* Setting up a mixed-language build environment with **Maven**
+* Implementing RESTful architecture
+* Writing clean, maintainable code for a common real-world use case
 
 It serves as a playground for testing concepts and filling out my GitHub portfolio with a working example of modern backend practices.
 
@@ -23,8 +23,11 @@ It serves as a playground for testing concepts and filling out my GitHub portfol
 
 ## ✨ Key Features
 
-* **Simple Shortening Logic:** Generates short codes for provided URLs.
-* **Redirection:** Handles HTTP redirects for valid short codes.
+* **Core Logic:**  Written in Java (Base62 Encoding) to demonstrate algorithmic logic
+
+* **Web Layer:** Written in Kotlin using Spring Boot for concise REST controllers
+
+* **Persistence:** PostgreSQL with Spring Data JPA
 
 ## 🚀 How to Run Locally
 
