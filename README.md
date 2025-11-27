@@ -6,44 +6,47 @@
 
 This project is a lightweight URL shortening service built to demonstrate backend development skills and explore the hybrid use of **Java** and **Kotlin** within a single **Spring Boot** application.
 
-The primary goal of this project was to practice:
-* Setting up a mixed-language build environment with **Maven**
-* Implementing RESTful architecture
-* Writing clean, maintainable code for a common real-world use case
+* **Core Logic:**  Written in Java (Base62 Encoding) to demonstrate algorithmic logic
+* **Web Layer:** Written in Kotlin using Spring Boot for concise REST controllers
+* **Persistence:** PostgreSQL with Spring Data JPA
+* **Containerization:** Deployed using Docker
 
 It serves as a playground for testing concepts and filling out my GitHub portfolio with a working example of modern backend practices.
 
 ## 🛠️ Tech Stack
 
-* **Core Languages:** Java & Kotlin
-* **Framework:** Spring Boot 3.5.7
+* **Languages:** Java 21, Kotlin 2.2
+* **Framework:** Spring Boot 3
+* **Database:** PostgreSQL 17
+* **Containerization:** Docker & Docker Compose
 * **Build Tool:** Maven
-* **Database:** 
-* **Testing:** 
 
-## ✨ Key Features
-
-* **Core Logic:**  Written in Java (Base62 Encoding) to demonstrate algorithmic logic
-
-* **Web Layer:** Written in Kotlin using Spring Boot for concise REST controllers
-
-* **Persistence:** PostgreSQL with Spring Data JPA
-
-## 🚀 How to Run Locally
-
-1. Clone the repository:
-   ```bash
-   git clone []()
-   ```
-2. Build the project:
-
+### Quick Start
+1.  Clone the repository.
     ```bash
-    ./mvnw clean install
+    git clone https://github.com/gluck243/url-shortener.git
     ```
-3. Run the application:
+    
+2.  Create a `.env` file in the root directory with the following variables:
+    ```properties
+    POSTGRES_USER=postgres
+    POSTGRES_PASSWORD=password
+    POSTGRES_DB=url_shortener
+    ```
 
+3.  Build the application:
     ```bash
-    ./mvnw spring-boot:run
+    mvn clean package -DskipTests
     ```
-The server will start at http://localhost:8080.
+4.  Launch the stack (App + Database):
+    ```bash
+    docker compose up --build
+    ```
+5.  Access the API Documentation:
+    * [http://localhost:8080/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html)
+
+##  API Endpoints
+
+* `POST /api/shorten` - Accepts `{"url": "..."}` and returns a short link.
+* `GET /api/{shortCode}` - Redirects to the original URL.
 

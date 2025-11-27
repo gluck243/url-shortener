@@ -4,6 +4,8 @@ import com.anton.url_shortener.dto.ShortenRequest
 import com.anton.url_shortener.logic.Base62Encoder
 import com.anton.url_shortener.model.UrlMapping
 import com.anton.url_shortener.repository.UrlRepository
+import io.swagger.v3.oas.annotations.Operation
+import io.swagger.v3.oas.annotations.responses.ApiResponse
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
@@ -18,6 +20,8 @@ import java.net.URI
 @RequestMapping("/api")
 class UrlController(private val encoder: Base62Encoder, private val repository: UrlRepository) {
 
+    @Operation(summary = "Shorten a URL", description = "Takes a long URL and returns a short link")
+    @ApiResponse(responseCode = "200", description = "Successfully shortened")
     @PostMapping("/shorten")
     fun shorten(@RequestBody request: ShortenRequest): String {
         val newMapping = UrlMapping(longUrl = request.url)
@@ -27,9 +31,12 @@ class UrlController(private val encoder: Base62Encoder, private val repository: 
         return "http://localhost:8080/api/$shortString"
     }
 
-    @GetMapping("/{shortUrl}")
-    fun redirect(@PathVariable shortUrl: String): ResponseEntity<Void> {
-        val decodedId = encoder.decode(shortUrl)
+    @Operation(summary = "Redirect to original", description = "Finds the original URL by ID and redirects the browser")
+    @ApiResponse(responseCode = "302", description = "Found and redirecting")
+    @ApiResponse(responseCode = "404", description = "Short code not found")
+    @GetMapping("/{shortCode}")
+    fun redirect(@PathVariable shortCode: String): ResponseEntity<Void> {
+        val decodedId = encoder.decode(shortCode)
         val mapping = repository.findById(decodedId)
         val entity = mapping.orElse(null)
         return entity?.let {
