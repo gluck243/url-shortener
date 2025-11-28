@@ -15,4 +15,4 @@ class UrlMapping(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0
-) {}
+)
