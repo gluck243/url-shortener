@@ -21,13 +21,13 @@ class UrlService(private val encoder: Base62Encoder,
 
     fun getOriginalUrl(shortCode: String): String? {
         val cached = redis.opsForValue().get(shortCode)
-        if (cached != null) {
-            println("Cache Hit! Returning from RAM.")
-            return cached
-        }
         val decodedId = encoder.decode(shortCode)
         val entity = repository.findById(decodedId).orElse(null) ?: return null
         redis.opsForValue().set(shortCode, entity.longUrl, 10, TimeUnit.MINUTES)
-        return entity.longUrl
+        if (cached != null) {
+            redis.opsForValue().increment("clicks:$shortCode")
+            redis.opsForSet().add("sync:updates", shortCode)
+        }
+        return cached ?: entity.longUrl
     }
 }

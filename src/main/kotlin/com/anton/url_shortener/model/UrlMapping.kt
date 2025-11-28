@@ -14,5 +14,8 @@ class UrlMapping(
     val longUrl: String,
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long = 0
+    val id: Long = 0,
+
+    @Column(nullable = false, columnDefinition = "integer default 0")
+    var clickCount: Int = 0
 )
