@@ -27,8 +27,9 @@ class UrlControllerTest {
         // Given (Setup the mocks)
         val originalUrl = "https://google.com"
         val expectedShortCode = "bc"
+        val alias = "google"
 
-        every {service.shorten(originalUrl)} returns expectedShortCode
+        every {service.shorten(originalUrl, alias)} returns expectedShortCode
 
         // When (Perform the request)
         mockMvc.perform(

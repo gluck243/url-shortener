@@ -25,7 +25,7 @@ class UrlController(private val service: UrlService) {
     @ApiResponse(responseCode = "200", description = "Successfully shortened")
     @PostMapping("/shorten")
     fun shorten(@RequestBody request: ShortenRequest): String {
-        val shortString = service.shorten(request.url)
+        val shortString = service.shorten(request.url, request.alias)
         return "http://localhost:8080/api/$shortString"
     }
 
