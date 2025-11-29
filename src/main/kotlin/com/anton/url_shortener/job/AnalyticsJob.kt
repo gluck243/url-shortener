@@ -12,18 +12,13 @@ class AnalyticsJob(private val repository: UrlRepository, private val redis: Str
     @Scheduled(fixedRate = 60000)
     fun analyse() {
         redis.opsForSet().pop("sync:updates", 1000)?.forEach { shortCode ->
-            println("Syncing URLs to database...")
             val clicks = redis.opsForValue().getAndDelete("clicks:$shortCode")
             clicks?.let { count ->
                 val id = encoder.decode(shortCode)
-                println("DEBUG: Job found code '$shortCode' (Clicks: $count). Decoding to ID: $id")
                 val mapping = repository.findById(id).orElse(null)
                 if (mapping != null) {
-                    println("DEBUG: Found Entity! Updating...")
                     mapping.clickCount += count.toInt()
                     repository.save(mapping)
-                } else {
-                    println("ERROR: Could not find Database Row with ID: $id")
                 }
             }
         } ?: return
