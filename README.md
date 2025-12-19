@@ -1,4 +1,4 @@
-# URL Shortener Service (Portfolio Demo)
+# URL Shortener Service
 
 *A practice project exploring Java & Kotlin interoperability with Spring Boot.*
 
@@ -9,6 +9,7 @@ This project is a lightweight URL shortening service built to demonstrate backen
 * **Core Logic:**  Written in Java (Base62 Encoding) to demonstrate algorithmic logic
 * **Web Layer:** Written in Kotlin using Spring Boot for concise REST controllers
 * **Persistence:** PostgreSQL with Spring Data JPA
+* **Caching:** Redis
 * **Containerization:** Deployed using Docker
 
 It serves as a playground for testing concepts and filling out my GitHub portfolio with a working example of modern backend practices.
@@ -17,7 +18,7 @@ It serves as a playground for testing concepts and filling out my GitHub portfol
 
 * **Languages:** Java 21, Kotlin 2.2
 * **Framework:** Spring Boot 3
-* **Database:** PostgreSQL 17
+* **Database:** PostgreSQL 17, Redis
 * **Containerization:** Docker & Docker Compose
 * **Build Tool:** Maven
 
@@ -47,6 +48,6 @@ It serves as a playground for testing concepts and filling out my GitHub portfol
 
 ##  API Endpoints
 
-* `POST /api/shorten` - Accepts `{"url": "..."}` and returns a short link.
+* `POST /api/shorten` - Accepts `{"url": "...", "alias": "..."}` and returns a short link.
 * `GET /api/{shortCode}` - Redirects to the original URL.
 
